@@ -1,12 +1,9 @@
 from fastapi import FastAPI
-from backend.app.api.customer import router as customer_router
+from backend.app.database.db import Base, engine
 
-app = FastAPI(
-    title="ConversationHub",
-    version="1.0.0"
-)
+Base.metadata.create_all(bind=engine)
 
-app.include_router(customer_router)
+app = FastAPI(title="ConversationHub")
 
 @app.get("/")
 def home():
